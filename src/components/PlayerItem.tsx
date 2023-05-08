@@ -1,10 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
 import { PlayerItemWithItem } from "../types/player-item-with-item";
-import { error } from "console";
 
 const PlayerStatus = () => {
-  const dummy: PlayerItemWithItem[] = [];
   const [itemsData, setItems] = useState<PlayerItemWithItem[]>([]);
 
   const fetchData = async () => {
