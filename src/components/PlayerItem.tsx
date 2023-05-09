@@ -4,6 +4,13 @@ import { PlayerItemWithItem } from "../types/player-item-with-item";
 
 const PlayerStatus = () => {
   const [itemsData, setItems] = useState<PlayerItemWithItem[]>([]);
+  const [inputCount, setCount] = useState<number[]>([]);
+  const updateCount = ((index: number,changeEvent: React.ChangeEvent<HTMLInputElement> ) => {
+    setCount(inputCount.map((count, key) => {
+      if(key === index ) return parseInt(changeEvent.target!.value);
+      else return count;
+    }))
+  });
 
   const fetchData = async () => {
     const playerId = localStorage.getItem("playerId");
@@ -27,17 +34,16 @@ const PlayerStatus = () => {
     } else {
       setItems(result);
     }
+    setCount(new Array(result.length + 1).fill(1));
   };
 
   //XXX useItemだとreactに怒られる
   const Item = async (id:number) => {
     const playerId = localStorage.getItem("playerId");
     try {
-
-      const element = document.getElementById("useCount" + id)! as HTMLInputElement;
       const body = {
         itemId: id,
-        count: parseInt(element.value)
+        count: inputCount[id]
       }
       console.log(body);
 
@@ -48,7 +54,6 @@ const PlayerStatus = () => {
       const data = await res.data;
       console.log(data);
       return data;
-      //TODO 取得したデータをstateに保存
     } catch (e) {
       console.log(e);
       return null;
@@ -82,8 +87,8 @@ const PlayerStatus = () => {
               <td>{it.price}</td>
               <td>{it.percent}</td>
               <td>{it.count}</td>
-              <td><input type="number" id={"useCount" + it.itemId} name="useCount" min="1" max={it.count}></input></td>
-              <td><button onClick={() => Item(it.itemId)} id={"useButton" + it.itemId} data-item_id={it.itemId}>Use</button></td>
+              <td><input type="number" id={"useCount" + it.itemId} min="1" max={it.count} onChange={(e) => updateCount(it.itemId,e)}></input></td>
+              <td><button onClick={() => Item(it.itemId)} data-item_id={it.itemId}>Use</button></td>
             </tr>
           ))}
         </tbody>
