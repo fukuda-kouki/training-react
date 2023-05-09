@@ -10,7 +10,7 @@ const PlayerStatus = () => {
     const playerId = localStorage.getItem("playerId");
     try {
       //自分のapiサーバーにリクエストを送る
-      const res = await axios.get(`http://localhost:3001/players/${playerId}`);
+      const res = await axios.get(`http://localhost:3000/players/${playerId}`);
       const data = await res.data;
       console.log(data);
       return data;
@@ -26,7 +26,7 @@ const PlayerStatus = () => {
     if (result == null) {
       setPlayers(dummy);
     } else {
-      setPlayers(result);
+      setPlayers([result]);
     }
   };
 
