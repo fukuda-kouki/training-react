@@ -5,6 +5,7 @@ import { PlayerItemWithItem } from "../types/player-item-with-item";
 const PlayerStatus = () => {
   const [itemsData, setItems] = useState<PlayerItemWithItem[]>([]);
   const [inputCount, setCount] = useState<number[]>([]);
+
   const updateCount = ((index: number,changeEvent: React.ChangeEvent<HTMLInputElement> ) => {
     setCount(inputCount.map((count, key) => {
       if(key === index ) return parseInt(changeEvent.target!.value);
@@ -87,8 +88,8 @@ const PlayerStatus = () => {
               <td>{it.price}</td>
               <td>{it.percent}</td>
               <td>{it.count}</td>
-              <td><input type="number" id={"useCount" + it.itemId} min="1" max={it.count} onChange={(e) => updateCount(it.itemId,e)}></input></td>
-              <td><button onClick={() => Item(it.itemId)} data-item_id={it.itemId}>Use</button></td>
+              <td><input type="number" min="1" max={it.count} onChange={(e) => updateCount(it.itemId,e)}></input></td>
+              <td><button onClick={() => Item(it.itemId)}>Use</button></td>
             </tr>
           ))}
         </tbody>
