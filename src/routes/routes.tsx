@@ -4,6 +4,7 @@ import Login from "../pages/Login";
 import Home from "../pages/Home";
 import PlayerStatus from "../components/PlayerStatus";
 import PlayerItem from "../components/PlayerItem";
+import GachaPage from "../components/Gacha";
 
 const routes = [
   {
@@ -21,6 +22,10 @@ const routes = [
       {
         path: "player-items",
         element: <PlayerItem />,
+      },
+      {
+        path: "gacha",
+        element: <GachaPage />,
       },
     ],
   },
